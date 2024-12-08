@@ -2,6 +2,7 @@ package ru.dianapak.core.list;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -61,17 +62,38 @@ public class SingleLinkedListImpl<T extends Comparable<T>> implements SingleLink
         }
     }
 
-    /**
-     * Merge sort
-     */
     @Override
-    public void sort() {
-        if (size < 2) {
-            return;
-        }
+    public void quickSort() {
         List<T> list = toList();
-        int mid = size / 2;
+        quickSort(list, 0, list.size() - 1);
+        var current = head;
+        for (T val : list) {
+            current.value = val;
+            current = current.next;
+        }
+    }
 
+    private void quickSort(List<T> list, int low, int high) {
+        if (low < high) {
+            int pivotIndex = partition(list, low, high);
+
+            quickSort(list, low, pivotIndex - 1);
+            quickSort(list, pivotIndex + 1, high);
+        }
+    }
+
+    private int partition(List<T> list, int low, int high) {
+        T pivot = list.get(high);
+        int i = low - 1;
+
+        for (int j = low; j < high; j++) {
+            if (list.get(j).compareTo(pivot) <= 0) {
+                i++;
+                Collections.swap(list, i, j);
+            }
+        }
+        Collections.swap(list, i + 1, high);
+        return i + 1;
     }
 
     @Override

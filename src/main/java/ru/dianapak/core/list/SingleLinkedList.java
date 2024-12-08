@@ -15,7 +15,7 @@ public interface SingleLinkedList<T extends Comparable<T>> {
 
     void forEach(Consumer<T> action);
 
-    void sort();
+    void quickSort();
 
     int size();
 

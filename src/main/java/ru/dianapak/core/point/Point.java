@@ -11,7 +11,6 @@ public record Point(int x, int y) implements Comparable<Point>, Serializable {
 
     @Override
     public String toString() {
-        return "x=" + x +
-                ", y=" + y;
+        return "x=" + x + ", y=" + y;
     }
 }
